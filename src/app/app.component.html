@@ -1,29 +1,37 @@
-<form #newForm='ngForm'>
-<div *ngFor='let data of arr;let i = index'>
-  <label>A{{i}}</label>
-  <input ngModel name='A{{i}}' type="text">
-  <button (click)='removeA(i)'>Remove</button>
-  <button (click)='addB(i)'>Add B</button>
+<form #newForm="ngForm">
+  <button (click)="addA()">Add A</button>
+  <div *ngFor="let data of arr; let i = index">
+    <label>A{{ i + 1 }}</label>
+    <input [(ngModel)]="data.title" name="{{ i }}" type="text" />
+    <button (click)="removeA(i)">Remove</button>
+    <button (click)="addB(i)">Add B</button>
 
-  <div class='margin-left' *ngFor='let data of arr[i];let j = index'>
-  <label>B{{i}}{{j}}</label>
-  <input ngModel name='B{{i}}{{j}}' type="text">
-  <button (click)='removeB(i,j)'>Remove</button>
-  <button (click)='addC(i,j)'>Add C</button>
-  
-  <div class='margin-left2' *ngFor='let data of arr[i][j];let k = index'>
-  <label>C{{i}}{{j}}{{k}}</label>
-  <input ngModel name='C{{i}}{{j}}{{k}}' type="text">
-  <button (click)='removeC(i,j,k)'>Remove</button>
-  <button (click)='addD(i,j,k)'>Add D</button>
-  <div class='margin-left3' *ngFor='let data of arr[i][j][k];let l = index'>
-  <label>D{{i}}{{j}}{{k}}{{l}}</label>
-  <input ngModel name='D{{i}}{{j}}{{k}}{{l}}' type="text">
-  <button (click)='removeD(i,j,k,l)'>Remove</button>
+    <div class="margin-left" *ngFor="let sub of data.content; let j = index">
+      <label>B{{ j + 1 }}</label>
+      <input [(ngModel)]="sub.title" name="{{ i }}{{ j }}" type="text" />
+      <button (click)="removeB(i, j)">Remove</button>
+      <button (click)="addC(i, j)">Add C</button>
+
+      <div class="margin-left2" *ngFor="let sub1 of sub.content; let k = index">
+        <label>C{{ k }}</label>
+        <input
+          [(ngModel)]="sub1.title"
+          name="{{ i }}{{ j }}{{ k }}"
+          type="text"
+        />
+        <button (click)="removeC(i, j, k)">Remove</button>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
-<button (click)='addA()'>Add A</button>
 </form>
-<button (click)='getData(newForm)'>Submit</button>
+<button (click)="getData()">Submit</button>
+
+<ul *ngFor="let data of arr">
+  <li>{{ data.title }}</li>
+  <ul *ngFor="let sub of data.content">
+    <li>{{ sub.title }}</li>
+    <ul *ngFor="let sub1 of sub.content">
+      <li>{{ sub1.title }}</li>
+    </ul>
+  </ul>
+</ul>

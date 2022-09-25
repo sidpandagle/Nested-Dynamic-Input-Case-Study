@@ -7,10 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name = 'Angular';
-  arr: any[] = [];
+  arr: Content[] = [];
 
   addA() {
-    this.arr.push([]);
+    let newContent = new Content();
+    this.arr.push(newContent);
   }
 
   removeA(i) {
@@ -18,34 +19,29 @@ export class AppComponent {
   }
 
   addB(i) {
-    this.arr[i].push([]);
+    let newContent = new Content();
+    this.arr[i].content.push(newContent);
   }
 
   removeB(i, j) {
-    this.arr[i].splice(j, 1);
+    this.arr[i].content.splice(j, 1);
   }
 
   addC(i, j) {
-    this.arr[i][j].push([]);
+    let newContent = new Content();
+    this.arr[i].content[j].content.push(newContent);
   }
 
   removeC(i, j, k) {
-    this.arr[i][j].splice(k, 1);
+    this.arr[i].content[j].content.splice(k, 1);
   }
 
-  addD(i, j, k) {
-    this.arr[i][j][k].push([]);
-  }
-  removeD(i, j, k, l) {
-    this.arr[i][j][k].splice(l, 1);
-  }
-
-  getData(form) {
-    console.log(form.value, this.arr);
+  getData() {
+    console.log(this.arr);
   }
 }
 
-export class Plan {
-  title;
-  plan: Plan[] = [];
+export class Content {
+  title:string='';
+  content: Content[] = [];
 }
